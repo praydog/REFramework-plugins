@@ -1,0 +1,18 @@
+# Reference: https://build-cpp.github.io/cmkr/cmake-toml
+[project]
+name = "reframework-disablesetcursorpos"
+
+[target.reframework]
+type = "interface"
+include-directories = ["deps/reframework/include"]
+
+[target.reframework-disablesetcursorpos]
+type = "shared"
+sources = ["src/**.cpp"]
+headers = ["src/**.hpp"]
+compile-features = ["cxx_std_20"]
+link-libraries = ["reframework"]
+
+[[install]]
+targets = ["reframework-disablesetcursorpos"]
+destination = "bin"
