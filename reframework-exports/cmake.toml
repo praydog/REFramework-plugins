@@ -6,6 +6,13 @@ name = "reframework-exports"
 type = "interface"
 include-directories = ["deps/reframework/include"]
 
+[target.reframework-not-a-plugin]
+type = "shared"
+sources = ["example/**.cpp"]
+headers = ["example/**.hpp"]
+compile-features = ["cxx_std_20"]
+link-libraries = ["reframework"]
+
 [target.reframework-exports]
 type = "shared"
 sources = ["src/**.cpp"]
@@ -14,5 +21,5 @@ compile-features = ["cxx_std_20"]
 link-libraries = ["reframework"]
 
 [[install]]
-targets = ["reframework-exports"]
+targets = ["reframework-exports", "reframework-not-a-plugin"]
 destination = "bin"

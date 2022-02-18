@@ -47,6 +47,38 @@ target_include_directories(reframework INTERFACE
 unset(CMKR_TARGET)
 unset(CMKR_SOURCES)
 
+# Target reframework-not-a-plugin
+set(CMKR_TARGET reframework-not-a-plugin)
+set(reframework-not-a-plugin_SOURCES "")
+
+list(APPEND reframework-not-a-plugin_SOURCES
+	"example/NotAPlugin.cpp"
+)
+
+list(APPEND reframework-not-a-plugin_SOURCES
+	cmake.toml
+)
+
+set(CMKR_SOURCES ${reframework-not-a-plugin_SOURCES})
+add_library(reframework-not-a-plugin SHARED)
+
+if(reframework-not-a-plugin_SOURCES)
+	target_sources(reframework-not-a-plugin PRIVATE ${reframework-not-a-plugin_SOURCES})
+endif()
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${reframework-not-a-plugin_SOURCES})
+
+target_compile_features(reframework-not-a-plugin PUBLIC
+	cxx_std_20
+)
+
+target_link_libraries(reframework-not-a-plugin PUBLIC
+	reframework
+)
+
+unset(CMKR_TARGET)
+unset(CMKR_SOURCES)
+
 # Target reframework-exports
 set(CMKR_TARGET reframework-exports)
 set(reframework-exports_SOURCES "")
@@ -82,6 +114,7 @@ unset(CMKR_SOURCES)
 install(
 	TARGETS
 		reframework-exports
+		reframework-not-a-plugin
 	DESTINATION
 		bin
 	COMPONENT
