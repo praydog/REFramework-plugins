@@ -38,8 +38,9 @@ extern "C" __declspec(dllexport) void reframework_plugin_required_version(REFram
 }
 
 extern "C" __declspec(dllexport) bool reframework_plugin_initialize(const REFrameworkPluginInitializeParam* param) {
-    API::initialize(param);
+    std::scoped_lock _{g_on_param_initialize_list_mutex};
 
+    API::initialize(param);
     g_param = param;
     
     for (const auto& func : g_on_param_initialize_list) {
